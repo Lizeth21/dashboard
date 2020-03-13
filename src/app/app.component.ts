@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'app';
   url = '';
   column: string[] = new Array();
-  row: string[]  = new Array();
+  row: any[]  = new Array();
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class AppComponent {
     this.http.get(this.url).subscribe(result => {
       const dta = result;
       this.getColumn(dta[0]);
-      this.getRow(dta);
+      this.getRow(JSON.parse(JSON.stringify(result)));
     }, error => {
       alert('Se presentaron problemas tecnicos ' + JSON.stringify(error));
     });
@@ -30,16 +30,30 @@ export class AppComponent {
 
   private getColumn(dta: any[]) {
     this.column = new Array();
-    this.column = Object.keys(dta);
+    const it = Object.keys(dta);
+    if (it.length >= 0) {
+      this.column.push(it[0]);
+    }
+    if (it.length >= 2) {
+      this.column.push(it[1]);
+    }
+
+    if (it.length >= 3) {
+      this.column.push(it[2]);
+    }
   }
 
-  private getRow(dta: any) {
+  private getRow(dta: any[]) {
     this.row = new Array();
-    for (let i = 0; i < dta.length; i++) {
-      const item = dta[i];
-      const it: any[] = Object.values(item);
-      for (let j = 0; j < it.length; j++) {
-        this.row.push(it[j]);
+    for (const it of dta){
+      let countItem = 0;
+      // tslint:disable-next-line:forin
+      for (const temp in it) {
+        console.log(JSON.stringify(temp));
+        if (countItem < 2) {
+          this.row.push(it[temp]);
+        }
+        countItem = countItem + 1;
       }
     }
   }

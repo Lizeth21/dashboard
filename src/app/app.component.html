@@ -220,16 +220,20 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          <div>
-            <table mdbTable>
+          <div class="">
+            <table class="table">
               <thead>
               <tr>
-                <th *ngFor="let head of column" scope="col">{{head}} </th>
+                <th scope="col">#</th>
+                <th scope="col">{{column[0]}}</th>
+                <th scope="col">{{column[1]}}</th>
               </tr>
               </thead>
               <tbody>
-              <tr mdbTableCol *ngFor="let el of row">
-               {{el}}
+              <tr *ngFor="let it of row; let i = index">
+                <th scope="row">{{i}}</th>
+                <td>{{it[0]}}</td>
+                <td>3</td>
               </tr>
               </tbody>
             </table>
