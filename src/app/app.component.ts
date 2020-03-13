@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -8,18 +8,18 @@ import {HttpClient} from '@angular/common/http';
 })
 export class AppComponent {
   title = 'app';
-  url = '';
+  @ViewChild('url') url: ElementRef;
   column: string[] = new Array();
   row: any[]  = new Array();
 
   constructor(private http: HttpClient) { }
 
   consult() {
-    if (this.url === '') {
+    if (this.url.nativeElement.value === '') {
       alert('Por favor digite la  url para poder consultar');
       return;
     }
-    this.http.get(this.url).subscribe(result => {
+    this.http.get(this.url.nativeElement.value ).subscribe(result => {
       const dta = result;
       this.getColumn(dta[0]);
       this.getRow(JSON.parse(JSON.stringify(result)));
@@ -47,19 +47,15 @@ export class AppComponent {
     this.row = new Array();
     for (const it of dta){
       let countItem = 0;
+      const arrow = new Array();
       // tslint:disable-next-line:forin
       for (const temp in it) {
-        console.log(JSON.stringify(temp));
         if (countItem < 2) {
-          this.row.push(it[temp]);
+          arrow.push(it[temp]);
         }
         countItem = countItem + 1;
       }
+      this.row.push(arrow);
     }
-  }
-
-  onKey(value: string) {
-    this.url = '';
-    this.url += value;
   }
 }

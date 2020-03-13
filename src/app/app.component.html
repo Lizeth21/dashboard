@@ -97,7 +97,7 @@
 
           <!-- Topbar Search -->
 
-          <input class="container_input_url" placeholder="digite la url para buscar" #url (keyup)="onKey(url.value)" />
+          <input class="container_input_url" placeholder="digite la url para buscar" #url  id="url" />
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -233,7 +233,7 @@
               <tr *ngFor="let it of row; let i = index">
                 <th scope="row">{{i}}</th>
                 <td>{{it[0]}}</td>
-                <td>3</td>
+                <td>{{it[1]}}</td>
               </tr>
               </tbody>
             </table>
