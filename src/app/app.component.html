@@ -36,9 +36,9 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" (click)="consult()">
+        <a class="nav-link collapsed"  data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" (click)="showTable()">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Agricultura y desarrollo rural.</span>
+          <span>Ver tabla</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -51,9 +51,9 @@
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities"  (click)="consult()">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities"  (click)="showPieChart()">
           <i class="fas fa-fw fa-wrench"></i>
-          <span>Ambiente y desarrollo.</span>
+          <span>Ver grafica</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -220,7 +220,7 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          <div class="">
+          <div *ngIf="VISIBLE_TABLE">
             <table class="table">
               <thead>
               <tr>
@@ -239,7 +239,10 @@
             </table>
           </div>
           <!-- Page Heading -->
+          <div *ngIf="VISIBLE_PIE">
+                     <app-pie-chart-component [pieChartLabels]="column" [pieChartData]="statistics"></app-pie-chart-component>
 
+          </div>
           <!-- Content Row -->
 
           <!-- Content Row -->

@@ -11,6 +11,10 @@ export class AppComponent {
   @ViewChild('url') url: ElementRef;
   column: string[] = new Array();
   row: any[]  = new Array();
+  statistics: number[]  = new Array();
+
+  VISIBLE_PIE = false;
+  VISIBLE_TABLE = false;
 
   constructor(private http: HttpClient) { }
 
@@ -56,6 +60,34 @@ export class AppComponent {
         countItem = countItem + 1;
       }
       this.row.push(arrow);
+    }
+  }
+
+  showTable() {
+    this.consult();
+    if (this.column.length >= 1) {
+      this.VISIBLE_PIE = false;
+      this.VISIBLE_TABLE = true;
+    }
+  }
+
+  showPieChart() {
+    this.consult();
+    if (this.column.length >= 1) {
+      this.getStatistics();
+      console.log(JSON.stringify(this.statistics));
+      this.VISIBLE_PIE = true;
+      this.VISIBLE_TABLE = false;
+    }
+  }
+
+  getStatistics() {
+     this.statistics = new Array();
+     let maximum = 100 / this.column.length;
+    for (let i = 0; i < this.column.length; i++) {
+      const item = Math.random() * (maximum - 0) + 0;
+      maximum = maximum + maximum;
+      this.statistics.push(item);
     }
   }
 }
